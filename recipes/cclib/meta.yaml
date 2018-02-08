@@ -1,0 +1,49 @@
+{% set name = "cclib" %}
+{% set version = "1.5.2" %}
+{% set sha256 = "25978ee40669d2c48e214b999ce418a587831b2d145012a4db47fbcfe464ab87" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  noarch: python
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+    - numpy
+    - biopython
+    - openbabel
+    - PyQuante
+
+test:
+  imports:
+    - cclib
+
+about:
+  home: http://cclib.github.io/
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: 'parsers and algorithms for computational chemistry'
+  description: |
+      cclib is a Python library that provides parsers for computational
+      chemistry log files. It also provides a platform to implement
+      algorithms in a package-independent manner.
+  dev_url: https://github.com/cclib/cclib
+
+extra:
+  recipe-maintainers:
+    - kain88-de
+    - richardjgowers
